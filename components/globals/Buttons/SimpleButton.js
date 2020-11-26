@@ -1,18 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-// import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { setRem } from '../../../styles';
 
-const SimpleButton = ({ className, title, link }) => {
-  return (
-    <div></div>
-    // <Link className={className} to={link}>
-    //   {title}
-    // </Link>
-  );
-};
-
-export default styled(SimpleButton)`
+const StyledLink = styled.a`
   padding: ${setRem(10)} ${setRem(27)};
   ${({ theme }) => theme.setRadius.round};
   font-size: ${setRem(12)};
@@ -30,3 +21,9 @@ export default styled(SimpleButton)`
     opacity: 1;
   }
 `;
+
+export default ({ href, title }) => (
+  <Link href={href} passHref>
+    <StyledLink>{title}</StyledLink>
+  </Link>
+);

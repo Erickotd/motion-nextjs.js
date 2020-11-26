@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 
-/* imports for Redux */
+// imports for Redux
 import { connect } from 'react-redux';
-import { loginAction } from '../store/actions/loginActions';
+import { signupAction } from '../store/actions/signupActions';
 
 /* Styled components*/
 import styled from 'styled-components';
@@ -11,7 +11,7 @@ import { setFlex, setRem } from '../styles';
 
 /* Components */
 import CredentialsLayout from '../layouts/credentialsLayout';
-import { MainButton, Title } from '../components/globals/';
+import { MainButton, Title } from '../components/globals';
 import Link from '../components/globals/Buttons/SimpleButton';
 import {
   AuthInput,
@@ -19,20 +19,19 @@ import {
   LoginIcon,
 } from '../components/globals/Inputs';
 
-const Login = ({ loginAction }) => {
+const SignUp = ({ signupAction }) => {
   const router = useRouter();
   const [Loading, setLoading] = useState(false);
-  const [UserAccesInfo, setUserAccesInfo] = useState({
-    email: 'ninecab303@pidouno.com',
-    password: 'cxyaq123',
+  const [UserEmail, setUserEmail] = useState({
+    email: '',
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const response = await loginAction(UserAccesInfo);
+    const response = await signupAction(UserEmail);
     if (response.status === 200) {
-      router.push('/');
+      router.push('/confirmation');
     } else {
       setLoading(false);
     }
@@ -40,41 +39,31 @@ const Login = ({ loginAction }) => {
 
   const onChangeHandler = (event, property) => {
     const value = event.currentTarget.value;
-    setUserAccesInfo({ ...UserAccesInfo, [property]: value });
+    setUserEmail({ ...UserEmail, [property]: value });
   };
 
   return (
     <>
       <CredentialsHeader>
         <span>Don't have an account?</span>
-        <Link href="/signup" title="Sign Up" />
+        <Link href="/login" title="Sign In" />
       </CredentialsHeader>
       <Form onSubmit={handleSubmit}>
         <FormBody>
-          <Title title="Sign in" />
+          <Title title="Sign up" />
           <InputWrapper>
             <LoginIcon src="/images/svgs/user.svg" alt="user icon" />
             <AuthInput
               type="email"
               placeholder="Email"
               name="email"
-              value={UserAccesInfo.email}
+              value={UserEmail.email}
               onChange={(e) => onChangeHandler(e, 'email')}
-            />
-          </InputWrapper>
-          <InputWrapper>
-            <LoginIcon src="/images/svgs/lock.svg" alt="lock icon" />
-            <AuthInput
-              type="password"
-              placeholder="Password"
-              name="password"
-              value={UserAccesInfo.password}
-              onChange={(e) => onChangeHandler(e, 'password')}
             />
           </InputWrapper>
         </FormBody>
         <FormFooter>
-          <MainButton title="Sign in" type="submit" loading={Loading} />
+          <MainButton title="Sign up" type="submit" loading={Loading} />
         </FormFooter>
       </Form>
     </>
@@ -88,9 +77,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-Login.Layout = CredentialsLayout;
+SignUp.Layout = CredentialsLayout;
 
-export default connect(mapStateToProps, { loginAction })(Login);
+export default connect(mapStateToProps, { signupAction })(SignUp);
 
 const CredentialsHeader = styled.div`
   ${setFlex('flex-end', 'center')};
