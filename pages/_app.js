@@ -1,26 +1,19 @@
-import { createGlobalStyle, ThemeProvider } from 'styled-components'
-
-const GlobalStyle = createGlobalStyle`
-  body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-`
-
-const theme = {
-  colors: {
-    primary: '#0070f3',
-  },
-}
+import { ThemeProvider } from 'styled-components';
+import GlobalStyle from '../styles/Globalstyles';
+import { theme } from '../styles/Globalstyles';
 
 export default function App({ Component, pageProps }) {
+  const Layout = Component.Layout || EmptyLayout;
   return (
     <>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </ThemeProvider>
     </>
-  )
+  );
 }
+
+const EmptyLayout = ({ children }) => <>{children}</>;

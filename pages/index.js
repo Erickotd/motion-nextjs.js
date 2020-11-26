@@ -1,10 +1,19 @@
-import styled from 'styled-components'
-
-const Title = styled.h1`
-  font-size: 50px;
-  color: ${({ theme }) => theme.colors.primary};
-`
+import Head from 'next/head';
 
 export default function Home() {
-  return <Title>My page</Title>
+  return (
+    <div className="container">
+      <Head>
+        <title>Next.js Starter!</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <main>
+        <p className="description">
+          Get started by editing <code>pages/index.js</code>
+        </p>
+        <img src="/images/logo.png" alt="" />
+      </main>
+    </div>
+  );
 }
