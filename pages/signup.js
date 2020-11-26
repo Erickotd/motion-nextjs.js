@@ -9,7 +9,7 @@ import { signupAction } from '../store/actions/signupActions';
 import styled from 'styled-components';
 import { setFlex, setRem } from '../styles';
 
-/* Components */
+/* Components asdc */
 import CredentialsLayout from '../layouts/credentialsLayout';
 import { MainButton, Title } from '../components/globals';
 import Link from '../components/globals/Buttons/SimpleButton';
