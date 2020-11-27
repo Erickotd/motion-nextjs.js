@@ -1,3 +1,4 @@
+import '../css/main.css';
 import { ThemeProvider } from 'styled-components';
 import { Provider } from 'react-redux';
 import { useStore } from '../store';

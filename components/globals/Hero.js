@@ -6,8 +6,8 @@ const Hero = styled.section`
   width: 40%;
   display: none;
   ${media.tablet`
-      display: initial;
-  `};
+    display: initial;
+`};
   ${(props) => setHeroBackground({ img: props.img })};
 `;
 
