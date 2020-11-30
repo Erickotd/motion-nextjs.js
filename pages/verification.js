@@ -64,7 +64,7 @@ const Verification = ({ verificationAction }) => {
                 type="email"
                 placeholder="Email"
                 name="email"
-                value={UserInfo.email}
+                value={router.query.data}
                 onChange={(e) => onChangeHandler(e, 'email')}
               />
             </InputWrapper>

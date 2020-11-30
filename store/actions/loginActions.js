@@ -26,12 +26,12 @@ export const loginAction = (userAcessInfo) => async (dispatch) => {
   try {
     const response = await axios.post(`${baseUrl}auth/token/`, userAcessInfo);
     const { data } = response;
-    console.log(data);
     dispatch(login(data));
     localStorage.setItem('token', data.access);
     return response;
   } catch (error) {
-    dispatch(loginError('The credentials are not valid'));
+    console.log(error);
+    dispatch(loginError('Credentials are not valid'));
     return error;
   }
 };

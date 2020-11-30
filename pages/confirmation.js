@@ -11,6 +11,7 @@ import { MainButton, Title } from '../components/globals';
 
 const Confirmation = () => {
   const router = useRouter();
+
   return (
     <>
       <CredentialsHeader />
@@ -19,13 +20,17 @@ const Confirmation = () => {
           <Title title="Congratulations" />
           <img src="/images/checked.png" alt="checked icon" />
           <p>We've have send a confirmation code to your email</p>
+          <span>{router.query.data}</span>;
         </FormBody>
         <FormFooter>
           <MainButton
             title="countinue"
             type="button"
             onClick={() => {
-              router.push('/verification');
+              router.push({
+                pathname: '/verification',
+                query: { data: router.query.data },
+              });
             }}
           />
         </FormFooter>

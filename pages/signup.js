@@ -31,7 +31,10 @@ const SignUp = ({ signupAction }) => {
     setLoading(true);
     const response = await signupAction(UserEmail);
     if (response.status === 200) {
-      router.push('/confirmation');
+      router.push({
+        pathname: '/confirmation',
+        query: { data: UserEmail.email },
+      });
     } else {
       setLoading(false);
     }

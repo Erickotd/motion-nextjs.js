@@ -24,7 +24,6 @@ export const verification_error = (error) => {
 };
 
 export const signupAction = (userEmail) => async (dispatch) => {
-  console.log(userEmail);
   try {
     const response = await axios.post(
       `${baseUrl}auth/registration/`,

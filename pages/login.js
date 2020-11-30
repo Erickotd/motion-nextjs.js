@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { IoIosInformationCircleOutline } from 'react-icons/io';
 
 /* imports for Redux */
 import { connect } from 'react-redux';
 import { loginAction } from '../store/actions/loginActions';
+import { alertAction } from '../store/actions/alertAction';
 
 /* Styled components*/
 import styled from 'styled-components';
@@ -19,7 +21,7 @@ import {
   LoginIcon,
 } from '../components/globals/Inputs';
 
-const Login = ({ loginAction }) => {
+const Login = ({ alertAction, loginAction, error, alert }) => {
   const router = useRouter();
   const [Loading, setLoading] = useState(false);
   const [UserAccesInfo, setUserAccesInfo] = useState({
@@ -34,6 +36,7 @@ const Login = ({ loginAction }) => {
     if (response.status === 200) {
       router.push('/');
     } else {
+      alertAction(error);
       setLoading(false);
     }
   };
@@ -72,6 +75,14 @@ const Login = ({ loginAction }) => {
               onChange={(e) => onChangeHandler(e, 'password')}
             />
           </InputWrapper>
+          {alert.show && (
+            <Error>
+              <span>
+                <IoIosInformationCircleOutline size="20px" />
+              </span>
+              {error}
+            </Error>
+          )}
         </FormBody>
         <FormFooter>
           <MainButton title="Sign in" type="submit" loading={Loading} />
@@ -85,12 +96,13 @@ const mapStateToProps = (state) => {
   return {
     error: state.loginReducer.error,
     authenticated: state.loginReducer.authenticated,
+    alert: state.alertReducer,
   };
 };
 
 Login.Layout = CredentialsLayout;
 
-export default connect(mapStateToProps, { loginAction })(Login);
+export default connect(mapStateToProps, { alertAction, loginAction })(Login);
 
 const CredentialsHeader = styled.div`
   ${setFlex('flex-end', 'center')};
@@ -122,5 +134,16 @@ const FormFooter = styled.div`
   ${setFlex('center', 'center')};
   span {
     margin-right: 17px;
+  }
+`;
+
+const Error = styled.div`
+  position: absolute;
+  top: 550px;
+  color: red;
+  span {
+    position: absolute;
+    top: -2px;
+    left: -25px;
   }
 `;
